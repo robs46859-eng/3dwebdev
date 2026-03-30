@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { toast, Toaster } from "sonner";
 import { 
   Sparkles, 
   Code, 
@@ -45,9 +46,14 @@ export default function App() {
         origin: { y: 0.9 },
         colors: ["#000000", "#333333", "#666666"]
       });
-    } catch (error) {
+      toast.success("Synthesis complete");
+    } catch (error: any) {
       console.error(error);
-      alert("Synthesis failed. Check console for details.");
+      const errorMessage = error.message || "Synthesis failed. Please try again.";
+      toast.error(errorMessage, {
+        description: error.code ? `Error Code: ${error.code}` : undefined,
+        duration: 5000,
+      });
     } finally {
       setIsGenerating(false);
       setGenerationStep("Initializing");
@@ -189,6 +195,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-white selection:text-black flex flex-col">
+      <Toaster position="top-center" theme="dark" />
       {/* Studio Header */}
       <header className="px-8 py-6 flex items-center justify-between border-b border-white/5">
         <div className="flex items-center gap-3">
