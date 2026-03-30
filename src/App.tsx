@@ -230,7 +230,10 @@ export default function App() {
               <button 
                 onClick={() => {
                   handleDownload();
-                  alert("Website exported successfully. You can now deploy this index.html to any static hosting service like Vercel, Netlify, or GitHub Pages.");
+                  toast.success("Website exported successfully", {
+                    description: "You can now deploy this index.html to any static hosting service like Vercel, Netlify, or GitHub Pages.",
+                    duration: 6000,
+                  });
                 }}
                 className="border border-white/20 px-6 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
               >
